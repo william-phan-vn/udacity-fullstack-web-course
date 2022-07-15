@@ -173,11 +173,16 @@ pip install -r requirements.txt
 
 5. **Run the development server:**
 ```
-export FLASK_APP=myapp
+export FLASK_APP=app
 export FLASK_ENV=development # enables debug mode
-python3 app.py
+python3 app.py or flask run
 ```
 
 6. **Verify on the Browser**<br>
 Navigate to project homepage [http://127.0.0.1:5000/](http://127.0.0.1:5000/) or [http://localhost:5000](http://localhost:5000) 
 
+7. **Config run/debug with Pycharm Community**
+
+Ref [Configure Pycharm Community Edition to run Flask](https://tekshinobi.com/configure-pycharm-community-edition-to-run-flask/)
+![img.png](document/pycharm_flask_config.png)
+- FLASK_DEBUG=1 helps you for hot reloading. When you change your code and save. The flask server will restart with new modified code.

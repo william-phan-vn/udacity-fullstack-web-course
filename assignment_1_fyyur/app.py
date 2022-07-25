@@ -1,6 +1,6 @@
-#----------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 # Imports
-#----------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 
 import json
 import dateutil.parser
@@ -13,9 +13,9 @@ import logging
 from logging import Formatter, FileHandler
 from flask_wtf import Form
 from forms import *
-#----------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 # App Config.
-#----------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 
 app = Flask(__name__)
 moment = Moment(app)
@@ -25,9 +25,10 @@ migrate = Migrate(app, db)
 
 # TODO: connect to a local postgresql database
 
-#----------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 # Models.
-#----------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
+
 
 class Venue(db.Model):
     __tablename__ = 'Venue'
@@ -42,6 +43,11 @@ class Venue(db.Model):
     facebook_link = db.Column(db.String(120))
 
     # TODO: implement any missing fields, as a database migration using Flask-Migrate
+    genres = db.Column(db.String(120))
+    website_link = db.Column(db.String(120))
+    seeking_talent = db.Column(db.Boolean)
+    seeking_description = db.Column(db.Text)
+    shows = db.relationship('Show', lazy=True)
 
 
 class Artist(db.Model):
@@ -57,12 +63,25 @@ class Artist(db.Model):
     facebook_link = db.Column(db.String(120))
 
     # TODO: implement any missing fields, as a database migration using Flask-Migrate
+    website_link = db.Column(db.String(120))
+    seeking_venue = db.Column(db.Boolean)
+    seeking_description = db.Column(db.Text)
+    shows = db.relationship('Show', lazy=True)
+
 
 # TODO Implement Show and Artist models, and complete all model relationships and properties, as a database migration.
+class Show(db.Model):
+    __tablename__ = 'Show'
 
-#----------------------------------------------------------------------------#
+    id = db.Column(db.Integer, primary_key=True)
+    artist_id = db.Column(db.Integer, db.ForeignKey('Artist.id'), nullable=False)
+    venue_id = db.Column(db.Integer, db.ForeignKey('Venue.id'), nullable=False)
+    start_time = db.Column(db.Time)
+
+
+# ---------------------------------------------------------------------------- #
 # Filters.
-#----------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 
 
 def format_datetime(value, format='medium'):
@@ -75,9 +94,9 @@ def format_datetime(value, format='medium'):
 
 app.jinja_env.filters['datetime'] = format_datetime
 
-#----------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 # Controllers.
-#----------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 
 
 @app.route('/')
@@ -512,9 +531,9 @@ if not app.debug:
     app.logger.addHandler(file_handler)
     app.logger.info('errors')
 
-#----------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 # Launch.
-#----------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 
 # Default port:
 if __name__ == '__main__':

@@ -76,6 +76,20 @@
 </section>
 
 <a href="/venues/{{ venue.id }}/edit"><button class="btn btn-primary btn-lg">Edit</button></a>
-
+<button class="btn btn-danger btn-lg" onclick="deleteVenue({{ venue.id }})">Delete</button>
+<script>
+	function deleteVenue(venue_id) {
+		fetch("/venues/" + venue_id, {
+			method: 'DELETE'
+		})
+		.then(function (response) {
+			return response.text();
+		}).then((html) => {
+			document.body.innerHTML = html;
+		}).catch(function (err) {
+			console.warn('Something went wrong.', err);
+		});
+	}
+</script>
 {% endblock %}
 

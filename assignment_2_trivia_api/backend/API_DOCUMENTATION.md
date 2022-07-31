@@ -40,9 +40,11 @@ The API will return three error types when requests fail:
 ```
 
 #### GET /questions?page=<int:page_key>
-- Fetches a paginated set of questions, a total number of questions, all categories and current category string.
+- Fetches a paginated set of questions, a total number of questions and all 
+  categories.
 - Request Arguments: `page` - integer
-- Returns: An object with 10 paginated questions, total questions, object including all categories, and current category string
+- Returns: An object with 10 paginated questions, total questions and object 
+  including all categories.
 ```json
 {
   "questions": [
@@ -63,8 +65,7 @@ The API will return three error types when requests fail:
     "4": "History",
     "5": "Entertainment",
     "6": "Sports"
-  },
-  "current_category": "Art"
+  }
 }
 ```
 
@@ -91,7 +92,7 @@ The API will return three error types when requests fail:
 ```
 
 - Returns: any array of questions, a number of total_questions that met the 
-  search term and the current category string
+  search term
 ```json
 {
   "questions": [
@@ -104,8 +105,7 @@ The API will return three error types when requests fail:
     },
     ...
   ],
-  "total_questions": 15,
-  "current_category": "Sports"
+  "total_questions": 15
 }
 ```
 
@@ -117,7 +117,8 @@ The API will return three error types when requests fail:
 #### GET /categories/<string:category_id>/questions
 - Fetches questions for a cateogry specified by id request argument
 - Request Arguments: `category_id` - integer
-- Returns: An object with questions for the specified category, total questions, and current category string
+- Returns: An object with questions for the specified category and total 
+  questions
 ```json
 {
   "questions": [
@@ -129,8 +130,7 @@ The API will return three error types when requests fail:
       "category": 3
     }
   ],
-  "total_questions": 35,
-  "current_category": "Art"
+  "total_questions": 35
 }
 ```
 
@@ -139,8 +139,11 @@ The API will return three error types when requests fail:
 - Request Body:
 ```json
 {
-    quiz_category': 'Sports',
-    'previous_questions': [3, 1, 23, 9]
+    "quiz_category": {
+      "type": "Sports", 
+      "id": "6"
+    },
+    "previous_questions": [3, 1, 23, 9]
  }
 ```
 

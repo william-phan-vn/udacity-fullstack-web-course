@@ -8,7 +8,6 @@ from flask_cors import CORS
 import random
 
 from models import setup_db, Question, Category
-from utils import paging
 
 
 def create_app(test_config=None):
@@ -63,7 +62,8 @@ def create_app(test_config=None):
     @app.route('/questions')
     def get_all_questions():
         page_key = request.args.get('page', 1, type=int)
-        start, end = paging(page_key=page_key, page_size=10)
+        start = (page_key - 1) * 10
+        end = start + 10
 
         questions = Question.query.all()
         paged_questions = questions[start:end]

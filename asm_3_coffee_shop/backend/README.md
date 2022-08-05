@@ -16,7 +16,7 @@ We recommend working within a virtual environment whenever using Python for proj
 
 Once you have your virtual environment setup and running, install dependencies by naviging to the `/backend` directory and running:
 
-```bash
+```buildoutcfg
 pip install -r requirements.txt
 ```
 
@@ -36,18 +36,24 @@ From within the `./src` directory first ensure you are working using your create
 
 Each time you open a new terminal session, run:
 
-```bash
+```buildoutcfg
 export FLASK_APP=api.py;
 ```
 
 To run the server, execute:
 
-```bash
+```buildoutcfg
 flask run --reload
 ```
 
 The `--reload` flag will detect file changes and restart the server automatically.
 
+
+## View the database
+- 
+```buildoutcfg
+$ sqlite3 database.db
+```
 ## Tasks
 
 ### Setup Auth0
